@@ -1,0 +1,61 @@
+<script>
+
+    function AddPost(){
+        var title = document.getElementById('t').value;
+        var slug = document.getElementById('s').value;
+        var g = {title:title,slug:slug};
+        var data = JSON.stringify(g);
+
+        if (window.XMLHttpRequest){
+          
+            var xhttp = new XMLHttpRequest();
+            
+
+            
+
+            
+        }else{
+
+            var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+        }
+
+        xhttp.onreadystatechange = function(){
+            if(xhttp.readyState === 4 && xhttp.status === 200){
+                var data = JSON.parse(this.responseText);
+                console.log(data);
+document.getElementById('title').innerHTML="Sarlovhasi "+data.title;
+document.getElementById('slug').innerHTML="Kalit so'z "+data.slug;
+document.getElementById('count').innerHTML="Postlar soni "+data.posts_count;
+
+                
+            }
+        }
+
+        var url = "http://127.0.0.1:8000/api/categorys/";
+        xhttp.open("POST",url+"?title="+title+"&?slug="+slug,true);
+        xhttp.send()
+
+    }
+
+    ControlLike()
+</script>
+<center>
+<h1>ok</h1>
+<ul>
+    <li id="title"></li>
+    <li id="slug"></li>
+    <li id="count"></li>
+</ul>
+<form action="">
+    <input type="text" name="title" id="t">
+    <input type="text" name="slug" id="s">
+    <input type="submit" value="ok" onclick="AddPost()">
+</form>
+
+</center>
+<style>
+    ul {
+        list-style: none;
+    }
+</style>

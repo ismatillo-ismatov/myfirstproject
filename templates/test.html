@@ -1,0 +1,29 @@
+{% extends "header.html" %}
+{% block title %} Post sahifasi {% endblock %}
+{% block index %}
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-3">
+        <div class="text-center">
+            <h4>Kategoriyalar</h4>
+        </div>
+    <ul class="list-group">
+        {% for c in posts %}
+
+            <li class="list-group-item"><a href="{% url 'blog:category_view' c.slug %}">
+                {{t.title}}
+            </a></li>
+
+        {% endfor %}
+
+</ul>
+
+       </div>
+       </div>
+       </div>
+       
+
+{% endblock %}

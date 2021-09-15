@@ -1,0 +1,108 @@
+{% extends "header.html" %}
+{% block title %} Category sahifasi {% endblock %}
+{% load thumbnail %}
+{% block index %}
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-3">
+
+        <div class="text-center">
+            <h4>Ko`p ko`rildi </h4>
+        </div>
+        <div class="row" style="border: 1px solid black; box-shadow: 4px 6px 8px black;">
+
+
+        {% for p in most_view %}
+
+        <div class="col-md-12">
+        <div class="card mt-2">
+
+  <img class="card-img" src="{{ p.image.url }}" alt="Card image">
+  <div class="card-img-overlay">
+    <p class="card-text text-white"><h2>{{ p.title }}</h2></p>
+  </div>
+</div>
+        </div>
+        {% endfor %}
+</div>
+
+        </div>
+        <div class="col-md-9">
+        <div class="text-center">
+            <h2>{{ category.title }} ga oid postlar</h2>
+        </div>
+            <div class="row">
+                {% for p in posts %}
+                <div class="col-md-4">
+                <div class="card mt-2">
+    {% thumbnail p.image "350x350" as im %}
+
+      <a href="">  <img class="card-img" src="{{ im.url }}"
+                        width="{{ im.width }}" height="{{ im.height }}" alt="Card image"></a>
+        {% endthumbnail %}
+  <div class="card-img-overlay">
+      <p class="card-text"><h2 class="text-white"><a href=""> {{ p.title }}</a></h2></p>
+
+    </div>
+        </div>
+            </div>
+                {% endfor %}
+  <nav aria-label="Page navigation example mt-2">
+  <ul class="pagination">
+
+        <li class="page-item"><a class="page-link"
+{% if page.has_previous %}
+     href="?page={{ page.previous_page_number }}"
+{% else %}
+href="#"
+{% endif %}
+     >Oldingi saxifa</a></li>
+
+
+     {% for n in page.paginator.page_range  %}
+
+
+     {% if page.number == n %}
+<li class="page-item active">
+  <a class="page-link" style="color:black" href="?page={{ n }}">{{ n }} <span class="sr-only"></span></a>
+</li>
+
+
+
+{% elif n > page.number|add:-3 and n < page.number|add:3 %}
+<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+{% endif %}
+{% empty %}
+
+{% endfor %}
+
+
+    <li class="page-item"><a class="page-link"
+
+{% if page.has_next %}
+     href="?page={{ page.next_page_number }}"
+{% else %}
+href="#"
+{% endif %}
+     >
+    Keyingi saxifa
+</a></li>
+  </ul>
+
+ <form action="" method="get" enctype="multipart/form-data">
+
+  <input type="number" name="page">
+
+
+  <input type="submit" value="Go">
+
+ <form>
+
+</nav>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

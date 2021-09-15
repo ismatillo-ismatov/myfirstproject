@@ -1,0 +1,54 @@
+{% extends "header.html" %}
+{% block title %} Aloqa sahifasi {% endblock %}
+{% block index %}
+    <h1>{{ category.title }}</h1>
+	<center>
+			<div class="card mt-5">
+                
+    
+				
+				<form action="" method="post" enctype="multipart/form-data">
+				  
+				{% for field in form %}
+
+				{% if field.errors %}
+
+				{% for error in field.errors %}
+				<div class="alert alert-danger">
+				<p>{{ error }}</p>
+				</div>
+				{% endfor %}
+
+				{% endif %}
+				
+
+				<div class="form-group">
+				<label for="" style="color:red;">{{ field.label }}</label>
+				
+					{{ field }}
+					</div>
+					{% endfor %}
+					{% csrf_token %}
+					<br> 
+					</div>
+
+					<div class="form-group">
+					
+					<input type="submit" class="btm btm-success" value="Xabar yuborish">
+					</div>
+				</form>
+			
+
+			</div>
+	</center>
+
+<style>
+	.card{
+
+		border:1px solid black;
+		padding:10px;
+		width: 380px;
+		box-shadow: 4px 5px 6px black; 
+	}
+</style>
+{% endblock  %}

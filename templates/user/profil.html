@@ -1,0 +1,27 @@
+{% extends "header.html" %}
+{% block title %} profil sahifasi {% endblock %}
+{% block index %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-center">
+                <div class="card">
+                    <img src="" alt="no image">
+                    <p>{{ user.username }}</p>
+                    <p><a href="#">Profilni o'zgartirish  <i  class="material-icons">build</i></a></p>
+                    <p><a href="{% url 'user:change_password' %}">Parolni o'zgartirish</a></p>
+                    <p><a href="{% url 'user:logout' %}">Chiqish</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    
+
+
+{% endblock %}

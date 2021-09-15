@@ -1,0 +1,58 @@
+
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title> {% block title %}Practic {% endblock  %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+
+        
+          
+
+       
+      </li>
+    </ul>
+    </form>
+  </div>
+</nav>
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" href="{% url 'blog:bosh' %}">Bosh sahifa</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      
+    </div>
+    
+  </li>
+  <p class="nav-link" ><a  {% if not request.user.is_authenticated %} href="{% url 'user:sign' %}" 
+    {% else %}  href="{% url  'user:profil' %}"
+     {% endif %}><i  class="material-icons"> perm_identity </i></p></a>
+
+</ul>
+
+{% block index %}
+
+{% endblock %}
+
+
+
+
+
+
+<center><h1>My first project Footer</h1></center>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

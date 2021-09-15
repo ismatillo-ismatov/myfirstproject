@@ -1,0 +1,193 @@
+{% extends "header.html" %}
+{% block title %} Post sahifasi {% endblock %}
+{% load thumbnail %}
+{% block index %}
+
+
+<div class="container-fluid mt-4">
+    <div class="row">
+
+        <div class="col-md-3"> 
+        <div class="text-center">
+            <h4>Kategoriyalar</h4>
+        </div>
+    <ul class="list-group">
+        {% for c in categorys %}
+
+            <li class="list-group-item"><a href="{% url 'blog:category_view' c.slug %}">
+                {{ c.title }} ({{ c.postlar.count }})
+            </a></li>
+
+        {% endfor %}
+
+</ul>
+        <div class="text-center">
+            <h4>Ko`p ko`rildi</h4>
+        </div>
+        {% for p in most_view %}
+
+        <div class="card mt-2">
+
+  <img class="card-img" src="{{ p.image.url }}" alt="Card image">
+  <div class="card-img-overlay">
+    <p class="card-text text-white"><h2>{{p.title}}</h2></p>
+  </div>
+</div>
+{% endfor %}
+<div class="text-center">
+    <h4>Foydali teglar</h4>
+</div>
+         <ul class="list-group">
+             {% for t in tags %}
+             <li class="list-group-items">
+                 <a href="{{ t.get_url }}">
+
+
+                    {{ t.title }}
+                 </a>
+             </li>
+             {% endfor %}
+         </ul>
+        
+</div>
+    <div class="col-md-9">
+        <div class="text-center">
+        <img style="width:850px; height:850px;" src="{{ maqola.image.url }}" alt="">
+        <br>
+    </div>
+    <h1 class="text-center">{{maqola.title}}</h1>
+    
+    <p>{{maqola.description }}</p>    
+    <p class="text-primary"> <i class="material-icons">visibility</i> {{maqola.views}}</p>
+    <p class="text-primary">
+        
+        <button  onclick="ControlLike('like','{{maqola.id}}')"> <i class="material-icons">thumb_up_off_alt</i> <b id="like">{{maqola.likes}}</b>
+        
+            <!-- <button disabled onclick="ControlLike('like','{{maqola.id}}')"> <i class="material-icons">thumb_up_off_alt</i> <b id="like">{{maqola.likes}}</b> -->
+         <!-- </button> -->
+        
+    <p class="text-primary">
+    
+    <button  onclick="ControlLike('dislike','{{maqola.id}}')"><i class="material-icons">thumb_down_off_alt</i><b id="dislike"> {{maqola.dislikes}} </b></button>
+    <p class="text-primary"> <i class="material-icons">favorite</i> {{maqola.heart }}</p>
+    <p class="text-primary"> date {{maqola.date }}</p>
+    <div class="text-center">
+
+
+<script>
+
+    function ControlLike(command,post_id){
+        if (window.XMLHttpRequest){
+                var g = {post_id:post_id,command:command}
+                var data = JSON.stringify(g);
+            var xhttp = new XMLHttpRequest();
+            
+
+            
+
+            
+        }else{
+
+            var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+        }
+
+        xhttp.onreadystatechange = function(){
+            if(xhttp.readyState === 4 && xhttp.status === 200){
+                var data = JSON.parse(this.responseText);
+                console.log(data);
+                document.getElementById("like").innerHTML = data.likes;
+                document.getElementById("dislike").innerHTML = data.dislikes;
+            }
+        }
+
+        var url = "{% url 'blog:control_like' %}";
+        xhttp.open("GET",url+"?com="+data,true);
+        xhttp.send()
+
+    }
+
+
+</script>
+
+
+
+        <h3 class="text-info">Bildirilgan fikrlar</h3>
+    </div>
+
+
+    {% for m in messages %}
+    <li class="bg-{{ m.tags }}">{{ m }}</li>
+    {% endfor %}
+    <ul>
+
+    {% for c in comment %}
+    <div class="media">
+  <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="64x64" style="width: 64px; height: 64px;"
+   src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1777a41bf90%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1777a41bf90%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.171875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+  <ul class="media-body">
+    <h5 class="mt-0">Media heading</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+    
+        </ul>
+        </div>
+    </ul>
+        </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="text-center">  
+                <h4> izox qoldirish</h4>
+            </div>
+            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
+            <h3>admin</h3>
+            {% endif %}
+            
+    <div class=" p-4">
+        <!-- <div class="form-group">
+            <label for="formGroupExampleInput">Ism</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+        </div> -->
+        <form action="{% url 'blog:post_detail' maqola.id %}" method="POST">
+        
+            <div class="form-group">
+                <label for="">{{ field }}</label>
+            {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="">{{ form.description.label}}
+            {{ form.description }}
+                </label>
+            </div>
+            </form>
+               <!-- <label for="formGroupExampleInput2">email</label>
+              <input type="text"  required name="email" class="form-control" id="comment" placeholder="Another input">  -->
+    
+    </div>
+            {% csrf_token %}
+        
+                <div class="form-group">
+                    <input type="submit" value="ok" class="btn btn-lg btn-success">
+                </div>
+            </div>
+            </form>
+        </div>
+ {% else %}
+ <h3> ro`yhatdan o`tin</h3>
+ {% endif %}
+
+    </div>
+</div>
+</div>
+    </div>
+
+    </div>
+    </div>
+
+
+{% endblock %}

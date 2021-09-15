@@ -1,0 +1,56 @@
+{% extends "header.html" %}
+{% block title %} Tags sahifasi {% endblock %}
+{% load thumbnail %}
+{% block index %}
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-3">
+
+        <div class="text-center">
+            <h4>Ko`p ko`rildi</h4>
+        </div>
+        <div class="row" style="border: 1px solid black; box-shadow: 4px 6px 8px black;">
+
+
+        {% for p in most_view %}
+
+        <div class="col-md-12">
+        <div class="card mt-2">
+
+  <img class="card-img" src="{{ p.image.url }}" alt="Card image">
+  <div class="card-img-overlay">
+    <p class="card-text text-white"><h2>{{ p.title }}</h2></p>
+  </div>
+</div>
+        </div>
+        {% endfor %}
+</div>
+
+        </div>
+        <div class="col-md-9">
+        <div class="text-center">
+            <h2>{{ tag.title }} ga oid postlar</h2>
+        </div>
+            <div class="row">
+                {% for p in posts %}
+                <div class="col-md-4">
+                <div class="card mt-2">
+    {% thumbnail p.image "350x350" as im %}
+
+      <a href="">  <img class="card-img" src="{{ im.url }}"
+                        width="{{ im.width }}" height="{{ im.height }}" alt="Card image"></a>
+        {% endthumbnail %}
+  <div class="card-img-overlay">
+      <p class="card-text"><h2 class="text-white"><a href=""> {{ p.title }}</a></h2></p>
+
+    </div>
+        </div>
+            </div>
+                {% endfor %}
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

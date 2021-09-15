@@ -1,0 +1,40 @@
+{% extends "header.html" %}
+{% block title %} Registratsiya sahifasi {% endblock %}
+{% block index %}
+<div class="container">
+    <div class="col-md-8 offset-2 mt-5 card bg-light">
+        <div class="form-group">
+            <div class="text-center">
+                <form action="" method="post">
+                {{ form.errors}}                    
+				{% if field.errors %}
+
+				{% for error in field.errors %}
+				<div class="alert alert-danger">
+				<p>{{ error }}</p>
+				</div>
+				{% endfor %}
+                
+				{% endif %}
+                {%for field in form %} 
+                <div class="form-group">
+                    {{ field }}
+                </div>
+                {% csrf_token %}
+                {% endfor %}
+
+                        <div class="form-group">
+                            <label for="" style="color:red;">{{ field.label }}</label>
+                            
+
+                            <input type="submit" value="Ro'yhatdan o'tish" class="btn btn-success">
+                        </div>
+                </form>
+            </div>
+        </div>
+        <div class="text-center">
+            <h3>Ro`yhatdan o`tgansiz <a href="#"><i>Saytga Kirish</i></a></h3>
+        </div>
+    </div>
+</div>
+{% endblock %}
