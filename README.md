@@ -1,0 +1,2 @@
+# myfirstproject
+birinchi loyiham
